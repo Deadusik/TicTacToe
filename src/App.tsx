@@ -1,9 +1,10 @@
 import React from 'react';
+import { AppRouter } from './router/AppRouter';
 
 function App() {
   return (
-    <div className="App">
-      <h1>i'm okay!</h1>
+    <div className="w-full h-screen bg-orange-50">
+      <AppRouter />
     </div>
   );
 }
