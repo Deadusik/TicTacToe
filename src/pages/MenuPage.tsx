@@ -1,8 +1,9 @@
 import svgZiro from '../assets/ziro.svg'
 import svgCross from '../assets/cross.svg'
-import styles from '../styles/pages/MenuPage.module.scss'
+import svgFilterStyles from '../styles/svg/svgFilters.module.scss'
 import { Link } from 'react-router-dom'
 import { DUAL, SINGLE } from '../router/paths'
+import { SPACE } from '../utils/constants'
 
 export function MenuPage() {
     const pageStyles = {
@@ -23,46 +24,46 @@ export function MenuPage() {
             'text-white',
             'text-xl',
             'hover:bg-indigo-400'
-        ].join(' '),
+        ].join(SPACE),
         title: [
             'animate-bounce',
             'mb-3',
             'text-3xl',
             'sm:text-5xl',
             'font-bold'
-        ].join(' '),
+        ].join(SPACE),
         contentContainer: [
             'w-full',
             'flex',
             'flex-col',
             'items-center',
             'z-10'
-        ].join(' '),
+        ].join(SPACE),
         mainContainer: [
             'w-full',
             'h-screen',
             'flex',
             'items-center',
             'justify-center'
-        ].join(' '),
+        ].join(SPACE),
         backgroundContainer: [
             'absolute',
             'w-full',
             'h-screen'
-        ].join(' '),
+        ].join(SPACE),
         SVG: [
             'animate-bounce',
             'absolute',
             'z-10',
-        ].join(' '),
+        ].join(SPACE),
         circleSVG: [
-            styles.SVGCircle,
+            svgFilterStyles.Circle,
             'w-[100px]'
-        ].join(' '),
+        ].join(SPACE),
         crossSVG: [
-            styles.SVGCross,
+            svgFilterStyles.Cross,
             'w-[80px]'
-        ].join(' ')
+        ].join(SPACE)
     }
 
     return (

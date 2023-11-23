@@ -2,6 +2,7 @@ import { GamePanel } from "../components/GamePanel";
 import gridSVG from '../assets/grid.svg'
 import styles from '../styles/pages/GamePage.module.scss'
 import { GameGridItem } from "../components/GameGridItem";
+import { SPACE } from "../utils/constants";
 
 interface IGamePageParams {
     gameMode: string
@@ -10,9 +11,9 @@ interface IGamePageParams {
 export function GamePage({ gameMode }: IGamePageParams) {
     const pageStyles = {
         mianContainer: [
+            'w-full',
             'flex',
-            'w-full'
-        ].join(' '),
+        ].join(SPACE),
         gridContainer: [
             'absolute',
             'top-1/2',
@@ -20,21 +21,28 @@ export function GamePage({ gameMode }: IGamePageParams) {
             'transform',
             '-translate-x-1/2',
             '-translate-y-1/2',
-            'z-10'
-        ].join(' '),
+            'z-10',
+        ].join(SPACE),
         gridContentContainer: [
-            'flex'
-        ].join(' '),
+            'max-w-[600px]',
+            'flex',
+            'flex-wrap',
+        ].join(SPACE),
+        gridRow: [
+            'w-[600px]',
+            'h-[200px]',
+            'flex',
+        ].join(SPACE),
         girdSVG: [
             styles.SVGGRid,
+            'w-[500px]',
             'absolute',
             'top-1/2',
             'left-1/2',
             'transform',
             '-translate-x-1/2',
             '-translate-y-1/2',
-            'w-[500px]'
-        ].join(' ')
+        ].join(SPACE)
     }
 
     return (
@@ -42,17 +50,20 @@ export function GamePage({ gameMode }: IGamePageParams) {
             <GamePanel />
             <div className={pageStyles.gridContainer}>
                 <div className={pageStyles.gridContentContainer}>
-                    <div>
+                    {/* top row */}
+                    <div className={pageStyles.gridRow}>
                         <GameGridItem />
                         <GameGridItem />
                         <GameGridItem />
                     </div>
-                    <div>
+                    {/* middle row */}
+                    <div className={pageStyles.gridRow}>
                         <GameGridItem />
                         <GameGridItem />
                         <GameGridItem />
                     </div>
-                    <div>
+                    {/* bottom row */}
+                    <div className={pageStyles.gridRow}>
                         <GameGridItem />
                         <GameGridItem />
                         <GameGridItem />

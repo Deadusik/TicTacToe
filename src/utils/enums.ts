@@ -1,0 +1,1 @@
+export enum CellItems { ZIRO, CROSS }
