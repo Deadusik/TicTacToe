@@ -8,13 +8,40 @@ interface IGamePageParams {
 }
 
 export function GamePage({ gameMode }: IGamePageParams) {
-    const buttonStyle = 'w-[200px] h-[200px] bg-sky-400 bg-transparent cursor-pointer'
+    const pageStyles = {
+        mianContainer: [
+            'flex',
+            'w-full'
+        ].join(' '),
+        gridContainer: [
+            'absolute',
+            'top-1/2',
+            'left-1/2',
+            'transform',
+            '-translate-x-1/2',
+            '-translate-y-1/2',
+            'z-10'
+        ].join(' '),
+        gridContentContainer: [
+            'flex'
+        ].join(' '),
+        girdSVG: [
+            styles.SVGGRid,
+            'absolute',
+            'top-1/2',
+            'left-1/2',
+            'transform',
+            '-translate-x-1/2',
+            '-translate-y-1/2',
+            'w-[500px]'
+        ].join(' ')
+    }
 
     return (
-        <div className="flex w-full">
+        <div className={pageStyles.mianContainer}>
             <GamePanel />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="flex">
+            <div className={pageStyles.gridContainer}>
+                <div className={pageStyles.gridContentContainer}>
                     <div>
                         <GameGridItem />
                         <GameGridItem />
@@ -33,7 +60,7 @@ export function GamePage({ gameMode }: IGamePageParams) {
                 </div>
             </div>
 
-            <img className={[styles.SVGGRid, "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px]"].join(' ')} src={gridSVG} alt="grid" />
+            <img className={pageStyles.girdSVG} src={gridSVG} alt="grid" />
         </div >
     )
 }
