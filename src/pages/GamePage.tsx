@@ -3,16 +3,22 @@ import gridSVG from '../assets/grid.svg'
 import styles from '../styles/pages/GamePage.module.scss'
 import { GameGridItem } from "../components/GameGridItem";
 import { SPACE } from "../utils/constants";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 interface IGamePageParams {
     gameMode: string
 }
 
 export function GamePage({ gameMode }: IGamePageParams) {
+    const { field } = useTypedSelector(state => state.game)
+
+    console.log(field) // dev
+
     const pageStyles = {
         mianContainer: [
             'w-full',
             'flex',
+            'h-screen'
         ].join(SPACE),
         gridContainer: [
             'absolute',

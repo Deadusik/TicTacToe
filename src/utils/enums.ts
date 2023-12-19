@@ -1,1 +1,1 @@
-export enum CellItems { ZIRO, CROSS }
+export enum CellTypes { EMPTY, ZIRO, CROSS }

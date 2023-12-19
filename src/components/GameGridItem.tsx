@@ -3,13 +3,13 @@ import crossSVG from '../assets/cross.svg'
 import ziroSVG from '../assets/ziro.svg'
 import { SPACE } from '../utils/constants'
 import svgFilterStyles from '../styles/svg/svgFilters.module.scss'
-import { CellItems } from '../utils/enums'
+import { CellTypes } from '../utils/enums'
 
 interface IGamePageParams {
-    cellType?: CellItems
+    cellType?: CellTypes
 }
 
-export function GameGridItem({ cellType = CellItems.CROSS }: IGamePageParams) {
+export function GameGridItem({ cellType = CellTypes.CROSS }: IGamePageParams) {
     const [isMouseEnter, setIsMouseEnter] = useState(false)
 
     const componentStyles = {
@@ -34,7 +34,7 @@ export function GameGridItem({ cellType = CellItems.CROSS }: IGamePageParams) {
         ].join(SPACE),
     }
 
-    const [svgStyle, svgSrc] = cellType === CellItems.CROSS ?
+    const [svgStyle, svgSrc] = cellType === CellTypes.CROSS ?
         [componentStyles.crossSVG, crossSVG] : [componentStyles.circleSVG, ziroSVG]
 
     return (
