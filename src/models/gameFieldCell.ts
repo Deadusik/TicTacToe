@@ -1,9 +1,9 @@
 import { CellTypes } from "../utils/enums";
 
 export interface IGameFieldCell {
-    setCell(type: CellTypes, position: number): void
     get Position(): number
-    get CellType(): CellTypes
+    get Type(): CellTypes
+    set Type(type: CellTypes)
 }
 
 export class GameFieldCell implements IGameFieldCell {
@@ -15,16 +15,15 @@ export class GameFieldCell implements IGameFieldCell {
         this.position = position
     }
 
-    setCell(type: CellTypes, position: number) {
-        this.type = type
-        this.position = position
-    }
-
     get Position(): number {
         return this.position
     }
 
-    get CellType(): CellTypes {
+    set Type(type: CellTypes) {
+        this.type = type
+    }
+
+    get Type(): CellTypes {
         return this.type
     }
 }

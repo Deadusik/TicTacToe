@@ -2,13 +2,18 @@ import { IGameFieldCell } from "../models/gameFieldCell"
 
 export enum GameActionTypes {
     MAKE_MOVE,
+    CHECK_GAME_WIN,
     ABORT_GAME
 }
 
 export interface IGameState {
-    field: any[],
+    field: Array<IGameFieldCell>,
     isCrossTurn: boolean,
     isGameEnd: boolean
+}
+
+export interface ICheckGameWin {
+    type: GameActionTypes.CHECK_GAME_WIN
 }
 
 export interface IMakeMove {
@@ -20,4 +25,4 @@ export interface IAbortGame {
     type: GameActionTypes.ABORT_GAME
 }
 
-export type IGameAction = IMakeMove | IAbortGame
+export type IGameAction = IMakeMove | IAbortGame | ICheckGameWin

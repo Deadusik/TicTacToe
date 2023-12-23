@@ -10,7 +10,10 @@ export const initState: IGameState = {
 export const gameReducer = (state = initState, action: IGameAction): IGameState => {
     switch (action.type) {
         case GameActionTypes.MAKE_MOVE: {
-            return { ...state, field: replaceGameFieldCell(state.field, action.payload) }
+            return { ...state, isCrossTurn: !state.isCrossTurn, field: replaceGameFieldCell([...state.field], action.payload) }
+        }
+        case GameActionTypes.CHECK_GAME_WIN: {
+            return { ...state }
         }
         case GameActionTypes.ABORT_GAME: {
             return { ...state }
