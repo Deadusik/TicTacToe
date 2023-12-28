@@ -1,6 +1,6 @@
 import { GameFieldCell, IGameFieldCell } from "../models/gameFieldCell";
 import { GAME_FIELD_CELL_SIZE } from "./constants";
-import { CellTypes } from "./enums";
+import { CellLocation, CellTypes, GameStatus } from "./enums";
 
 export const initGameField = (): Array<IGameFieldCell> => {
     let gameField = []
@@ -12,9 +12,11 @@ export const initGameField = (): Array<IGameFieldCell> => {
 
 export const replaceGameFieldCell = (field: Array<IGameFieldCell>, cell: IGameFieldCell)
     : Array<IGameFieldCell> => {
+    console.log(field)
+
     for (const cellItem of field) {
         if (cellItem.Position === cell.Position) {
-            field[cellItem.Position] = cell
+            field[cell.Position] = cell
             return field
         }
     }
@@ -22,15 +24,91 @@ export const replaceGameFieldCell = (field: Array<IGameFieldCell>, cell: IGameFi
     return field
 }
 
-export const checkGameWin = (field: Array<IGameFieldCell>): boolean => {
-    let countBusyCells = 0
+export const checkIsGameEnd = (field: Array<IGameFieldCell>): GameStatus => {
+    const winLines = [
+        [
+            field[CellLocation.TOP_LEFT],
+            field[CellLocation.TOP_CENTER],
+            field[CellLocation.TOP_RIGHT]
+        ],
+        [
+            field[CellLocation.MIDDLE_LEFT],
+            field[CellLocation.MIDDLE_CENTER],
+            field[CellLocation.MIDDLE_RIGHT]
+        ],
+        [
+            field[CellLocation.BOTTOM_LEFT],
+            field[CellLocation.BOTTOM_CENTER],
+            field[CellLocation.BOTTOM_RIGHT]
+        ],
+        [
+            field[CellLocation.TOP_LEFT],
+            field[CellLocation.MIDDLE_LEFT],
+            field[CellLocation.BOTTOM_LEFT]
+        ],
+        [
+            field[CellLocation.TOP_CENTER],
+            field[CellLocation.MIDDLE_CENTER],
+            field[CellLocation.BOTTOM_CENTER]
+        ],
+        [
+            field[CellLocation.TOP_RIGHT],
+            field[CellLocation.MIDDLE_RIGHT],
+            field[CellLocation.BOTTOM_RIGHT]
+        ],
+        [
+            field[CellLocation.TOP_LEFT],
+            field[CellLocation.MIDDLE_CENTER],
+            field[CellLocation.BOTTOM_RIGHT]
+        ],
+        [
+            field[CellLocation.TOP_RIGHT],
+            field[CellLocation.MIDDLE_CENTER],
+            field[CellLocation.BOTTOM_LEFT]
+        ]
+    ]
 
-    for (const cell of field) {
-        if (cell.Type !== CellTypes.EMPTY) countBusyCells++
+    let result = GameStatus.GAME_ON
+
+    for (const winLine of winLines) {
+        result = checkWinLine(winLine)
+
+        if (result !== GameStatus.GAME_ON)
+            return result
     }
 
-    if (countBusyCells === 9)
-        return true
+    result = checkIsDraw(field) // is field full
 
-    return false
+    return result
+}
+
+const checkIsDraw = (field: IGameFieldCell[]): GameStatus => {
+    for (const cell of field) {
+        if (cell.Type === CellTypes.EMPTY)
+            return GameStatus.GAME_ON
+    }
+    return GameStatus.DRAW
+}
+
+const checkWinLine = (cellLine: IGameFieldCell[]): GameStatus => {
+    const checkingCellType = cellLine[cellLine.length - 1].Type
+    cellLine.pop()
+
+    for (const cell of cellLine) {
+        if (cell.Type !== checkingCellType)
+            return GameStatus.GAME_ON
+    }
+
+    return getGameStatus(checkingCellType)
+}
+
+const getGameStatus = (cellType: CellTypes): GameStatus => {
+    switch (cellType) {
+        case CellTypes.CROSS:
+            return GameStatus.CROSS_WIN
+        case CellTypes.ZIRO:
+            return GameStatus.ZIRO_WIN
+        default:
+            return GameStatus.DRAW
+    }
 }

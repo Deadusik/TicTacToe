@@ -1,7 +1,11 @@
 import { GameGridItem } from "../game_field/GameGridItem";
 import { SPACE } from "../../utils/constants";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 export function GameField() {
+    const { game } = useTypedSelector(state => state)
+    console.log(game)
+
     const pageStyles = {
         fieldContainer: [
             'max-w-[600px]',
