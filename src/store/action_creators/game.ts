@@ -6,6 +6,11 @@ export const makeMove = (cell: GameFieldCell) => ({
     payload: cell
 })
 
+export const makeMoveAI = (cell: GameFieldCell) => ({
+    type: GameActionTypes.AI_MAKE_MOVE,
+    payload: cell
+})
+
 export const abortGame = () => ({
     type: GameActionTypes.ABORT_GAME
 })

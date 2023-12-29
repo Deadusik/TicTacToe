@@ -3,7 +3,8 @@ import { GameStatus } from "../utils/enums"
 
 export enum GameActionTypes {
     MAKE_MOVE,
-    ABORT_GAME
+    ABORT_GAME,
+    AI_MAKE_MOVE
 }
 
 export interface IGameState {
@@ -17,8 +18,13 @@ export interface IMakeMove {
     payload: IGameFieldCell
 }
 
+export interface IMakeMoveAI {
+    type: GameActionTypes.AI_MAKE_MOVE,
+    payload: IGameFieldCell
+}
+
 export interface IAbortGame {
     type: GameActionTypes.ABORT_GAME
 }
 
-export type IGameAction = IMakeMove | IAbortGame
+export type IGameAction = IMakeMove | IAbortGame | IMakeMoveAI

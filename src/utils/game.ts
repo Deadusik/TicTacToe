@@ -4,15 +4,16 @@ import { CellLocation, CellTypes, GameStatus } from "./enums";
 
 export const initGameField = (): Array<IGameFieldCell> => {
     let gameField = []
+
     for (let i = 0; i < GAME_FIELD_CELL_SIZE; i++) {
         gameField.push(new GameFieldCell(CellTypes.EMPTY, i))
     }
+
     return gameField
 }
 
 export const replaceGameFieldCell = (field: Array<IGameFieldCell>, cell: IGameFieldCell)
     : Array<IGameFieldCell> => {
-    console.log(field)
 
     for (const cellItem of field) {
         if (cellItem.Position === cell.Position) {
@@ -77,7 +78,8 @@ export const checkIsGameEnd = (field: Array<IGameFieldCell>): GameStatus => {
             return result
     }
 
-    result = checkIsDraw(field) // is field full
+    // is field full
+    result = checkIsDraw(field)
 
     return result
 }
@@ -109,6 +111,6 @@ const getGameStatus = (cellType: CellTypes): GameStatus => {
         case CellTypes.ZIRO:
             return GameStatus.ZIRO_WIN
         default:
-            return GameStatus.DRAW
+            return GameStatus.GAME_ON
     }
 }

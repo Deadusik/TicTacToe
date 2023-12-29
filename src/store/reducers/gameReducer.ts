@@ -18,6 +18,9 @@ export const gameReducer = (state = initState, action: IGameAction): IGameState 
                 gameStatus: checkIsGameEnd(state.field)
             }
         }
+        case GameActionTypes.AI_MAKE_MOVE: {
+            return { ...state }
+        }
         case GameActionTypes.ABORT_GAME: {
             return { ...state }
         }
