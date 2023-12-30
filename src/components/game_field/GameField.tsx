@@ -1,12 +1,7 @@
 import { GameGridItem } from "../game_field/GameGridItem";
 import { SPACE } from "../../utils/constants";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { GameStatus } from "../../utils/enums";
 
 export function GameField() {
-    const { game } = useTypedSelector(state => state)
-    console.log(game) //d
-
     const pageStyles = {
         fieldContainer: [
             'max-w-[600px]',
@@ -50,14 +45,6 @@ export function GameField() {
                     <GameGridItem position={8} />
                     <GameGridItem position={9} />
                 </div>
-            </div>
-            <div>
-                {
-                    game.gameStatus !== GameStatus.GAME_ON &&
-                    <div>
-                        Game is end!
-                    </div>
-                }
             </div>
         </div>
     )

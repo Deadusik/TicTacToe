@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom"
+import { useActions } from "../hooks/useActions"
 import { SPACE } from "../utils/constants"
+import { MENU } from "../router/paths"
 
 export function GamePanel() {
+    const { endGame } = useActions()
+
     const componentStyles = {
         mainContainer: [
             'w-full',
@@ -32,8 +37,8 @@ export function GamePanel() {
                 <div>1</div>
             </div>
             <div className={componentStyles.gameController}>
-                <button>restart</button>
-                <button>exit</button>
+                <button onClick={endGame}>restart</button>
+                <Link onClick={endGame} to={MENU}>exit</Link>
             </div>
         </div>
     )

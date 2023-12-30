@@ -3,12 +3,26 @@ import gridSVG from '../assets/grid.svg'
 import styles from '../styles/pages/GamePage.module.scss'
 import { SPACE } from "../utils/constants";
 import { GameField } from "../components/game_field/GameField";
+import { GameMode, GameStatus } from "../utils/enums";
+import { useEffect } from "react";
+import { useActions } from "../hooks/useActions";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 interface IGamePageParams {
-    gameMode: string
+    gameMode: GameMode
 }
 
 export function GamePage({ gameMode }: IGamePageParams) {
+    const { isCrossTurn, gameStatus } = useTypedSelector(state => state.game)
+    const { makeMoveAI } = useActions()
+
+    useEffect(() => {
+        if (gameMode === GameMode.SOLO
+            && !isCrossTurn
+            && gameStatus === GameStatus.GAME_ON)
+            makeMoveAI()
+    }, [isCrossTurn])
+
     const pageStyles = {
         mianContainer: [
             'w-full',
@@ -33,6 +47,14 @@ export function GamePage({ gameMode }: IGamePageParams) {
             <GameField />
             { /* game field background */}
             <img className={pageStyles.girdSVG} src={gridSVG} alt="grid" />
+            <div>
+                {
+                    gameStatus !== GameStatus.GAME_ON &&
+                    <div>
+                        Game is end!
+                    </div>
+                }
+            </div>
         </div >
     )
 }

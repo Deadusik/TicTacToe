@@ -5,3 +5,4 @@ export enum CellLocation {
     MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT,
     BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
 }
+export enum GameMode { SOLO, DUAL }

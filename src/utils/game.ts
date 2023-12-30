@@ -1,6 +1,7 @@
 import { GameFieldCell, IGameFieldCell } from "../models/gameFieldCell";
 import { GAME_FIELD_CELL_SIZE } from "./constants";
 import { CellLocation, CellTypes, GameStatus } from "./enums";
+import { getRandomInt } from "./random";
 
 export const initGameField = (): Array<IGameFieldCell> => {
     let gameField = []
@@ -14,6 +15,9 @@ export const initGameField = (): Array<IGameFieldCell> => {
 
 export const replaceGameFieldCell = (field: Array<IGameFieldCell>, cell: IGameFieldCell)
     : Array<IGameFieldCell> => {
+
+    if (cell.Type === CellTypes.EMPTY)
+        return field
 
     for (const cellItem of field) {
         if (cellItem.Position === cell.Position) {
@@ -82,6 +86,17 @@ export const checkIsGameEnd = (field: Array<IGameFieldCell>): GameStatus => {
     result = checkIsDraw(field)
 
     return result
+}
+
+export const getCellFromAI = (isCrossTurn: boolean, field: IGameFieldCell[]): GameFieldCell => {
+    const cellType = isCrossTurn ? CellTypes.CROSS : CellTypes.ZIRO
+
+    while (true) {
+        const position = getRandomInt(9)
+        if (field[position].Type === CellTypes.EMPTY) {
+            return new GameFieldCell(cellType, position)
+        }
+    }
 }
 
 const checkIsDraw = (field: IGameFieldCell[]): GameStatus => {

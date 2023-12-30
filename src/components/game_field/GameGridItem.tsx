@@ -3,7 +3,7 @@ import crossSVG from '../../assets/cross.svg'
 import ziroSVG from '../../assets/ziro.svg'
 import { SPACE } from '../../utils/constants'
 import svgFilterStyles from '../../styles/svg/svgFilters.module.scss'
-import { CellTypes } from '../../utils/enums'
+import { CellTypes, GameStatus } from '../../utils/enums'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { useActions } from '../../hooks/useActions'
 import { GameFieldCell, IGameFieldCell } from '../../models/gameFieldCell'
@@ -15,7 +15,7 @@ interface IGamePageParams {
 export function GameGridItem({ position }: IGamePageParams) {
     const [isMouseEnter, setIsMouseEnter] = useState(false)
     const { makeMove } = useActions()
-    const { field, isCrossTurn } = useTypedSelector(state => state.game)
+    const { field, isCrossTurn, gameStatus } = useTypedSelector(state => state.game)
 
     const cell: IGameFieldCell = field[position - 1]
     const cellMoveType
@@ -106,7 +106,7 @@ export function GameGridItem({ position }: IGamePageParams) {
             onMouseEnter={() => setIsMouseEnter(true)}
             onMouseLeave={() => setIsMouseEnter(false)}
             onClick={() => {
-                if (cell.Type === CellTypes.EMPTY) {
+                if (gameStatus === GameStatus.GAME_ON && cell.Type === CellTypes.EMPTY) {
                     setCell()
                 }
             }}>
@@ -119,7 +119,7 @@ export function GameGridItem({ position }: IGamePageParams) {
                         ].join(SPACE)
                     } src={svgSrc} draggable='false' alt='cell' />
                     :
-                    isMouseEnter &&
+                    isMouseEnter && gameStatus === GameStatus.GAME_ON &&
                     // if cell is empty
                     <img className={
                         [

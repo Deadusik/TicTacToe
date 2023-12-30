@@ -2,6 +2,7 @@ import { DUAL, MENU, SINGLE, } from "./paths"
 import { MenuPage } from '../pages/MenuPage'
 import { ErrorPage } from '../pages/ErrorPage'
 import { GamePage } from '../pages/GamePage'
+import { GameMode } from "../utils/enums"
 
 export const routes = [
     {
@@ -11,12 +12,12 @@ export const routes = [
     },
     {
         path: SINGLE,
-        element: <GamePage gameMode='SINGLE' />,
+        element: <GamePage gameMode={GameMode.SOLO} />,
         error: <ErrorPage />
     },
     {
         path: DUAL,
-        element: <GamePage gameMode="dual" />,
+        element: <GamePage gameMode={GameMode.DUAL} />,
         error: <ErrorPage />
     }
 ]

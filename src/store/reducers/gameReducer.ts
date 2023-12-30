@@ -1,6 +1,6 @@
 import { GameActionTypes, IGameAction, IGameState } from "../../types/game"
 import { GameStatus } from "../../utils/enums"
-import { checkIsGameEnd, initGameField, replaceGameFieldCell } from "../../utils/game"
+import { checkIsGameEnd, getCellFromAI, initGameField, replaceGameFieldCell } from "../../utils/game"
 
 export const initState: IGameState = {
     field: initGameField(),
@@ -19,10 +19,19 @@ export const gameReducer = (state = initState, action: IGameAction): IGameState 
             }
         }
         case GameActionTypes.AI_MAKE_MOVE: {
-            return { ...state }
+            return {
+                ...state,
+                isCrossTurn: !state.isCrossTurn,
+                field: replaceGameFieldCell(state.field, getCellFromAI(state.isCrossTurn, state.field)),
+                gameStatus: checkIsGameEnd(state.field)
+            }
         }
-        case GameActionTypes.ABORT_GAME: {
-            return { ...state }
+        case GameActionTypes.END_GAME: {
+            return {
+                field: initGameField(),
+                isCrossTurn: true,
+                gameStatus: GameStatus.GAME_ON
+            }
         }
         default:
             return state
