@@ -7,6 +7,7 @@ import { GameMode, GameStatus } from "../utils/enums";
 import { useEffect } from "react";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import { GameEndModal } from "../components/modal/GameEndModal";
 
 interface IGamePageParams {
     gameMode: GameMode
@@ -50,9 +51,7 @@ export function GamePage({ gameMode }: IGamePageParams) {
             <div>
                 {
                     gameStatus !== GameStatus.GAME_ON &&
-                    <div>
-                        Game is end!
-                    </div>
+                    <GameEndModal />
                 }
             </div>
         </div >

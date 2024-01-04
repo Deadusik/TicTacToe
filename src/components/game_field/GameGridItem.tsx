@@ -113,19 +113,17 @@ export function GameGridItem({ position }: IGamePageParams) {
             {
                 cell.Type !== CellTypes.EMPTY ?
                     // if cell is set
-                    <img className={
-                        [
-                            svgStyle
-                        ].join(SPACE)
-                    } src={svgSrc} draggable='false' alt='cell' />
+                    <img className={svgStyle}
+                        src={svgSrc}
+                        draggable='false'
+                        alt='cell' />
                     :
                     isMouseEnter && gameStatus === GameStatus.GAME_ON &&
                     // if cell is empty
-                    <img className={
-                        [
-                            svgStyle
-                        ].join(SPACE)
-                    } src={svgSrc} draggable='false' alt='cell' />
+                    <img className={svgStyle}
+                        src={svgSrc}
+                        draggable='false'
+                        alt='cell' />
             }
         </div>
     )

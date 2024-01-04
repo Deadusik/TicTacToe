@@ -5,3 +5,7 @@
 .Cross {
     filter: brightness(0) saturate(100%) invert(24%) sepia(42%) saturate(5445%) hue-rotate(349deg) brightness(89%) contrast(93%);
 }
+
+.WhiteFilter {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7465%) hue-rotate(76deg) brightness(113%) contrast(104%);
+}

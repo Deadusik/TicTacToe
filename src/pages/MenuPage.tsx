@@ -81,17 +81,15 @@ export function MenuPage() {
                 <Link className={pageStyles.button} to={DUAL}>Settings</Link>
             </div>
 
-
             <div className={pageStyles.backgroundContainer}>
-
                 { /* left svg circle */}
                 <img className={
                     [
                         pageStyles.SVG,
                         pageStyles.circleSVG,
                         'left-[30%] top-[7%] sm:left-[20%] lg:left-[10%]'
-                    ].join(' ')
-                } src={svgZiro} alt='circle' />
+                    ].join(SPACE)
+                } src={svgZiro} alt='circle' draggable='false' />
 
                 { /* left svg cross */}
                 <img className={
@@ -99,8 +97,8 @@ export function MenuPage() {
                         pageStyles.SVG,
                         pageStyles.crossSVG,
                         'left-[5%] top-[3%] lg:left-[2%]'
-                    ].join(' ')
-                } src={svgCross} alt='cross' />
+                    ].join(SPACE)
+                } src={svgCross} alt='cross' draggable='false' />
 
                 { /* right svg circle */}
                 <img className={
@@ -108,8 +106,8 @@ export function MenuPage() {
                         pageStyles.SVG,
                         pageStyles.circleSVG,
                         'right-[5%] bottom-[3%] lg:right-[10%]'
-                    ].join(' ')
-                } src={svgZiro} alt='circle' />
+                    ].join(SPACE)
+                } src={svgZiro} alt='circle' draggable='false' />
 
                 { /* right svg cross */}
                 <img className={
@@ -117,8 +115,8 @@ export function MenuPage() {
                         pageStyles.SVG,
                         pageStyles.crossSVG,
                         'right-[35%] bottom-[7%] sm:right-[20%] lg:right-[2%]'
-                    ].join(' ')
-                } src={svgCross} alt='cross' />
+                    ].join(SPACE)
+                } src={svgCross} alt='cross' draggable='false' />
             </div>
 
         </div >
