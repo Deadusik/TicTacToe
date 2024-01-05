@@ -1,8 +1,10 @@
-import { DUAL, MENU, SINGLE, } from "./paths"
+import { DUAL, HISTORY, MENU, SETTINGS, SINGLE, } from "./paths"
 import { MenuPage } from '../pages/MenuPage'
 import { ErrorPage } from '../pages/ErrorPage'
 import { GamePage } from '../pages/GamePage'
 import { GameMode } from "../utils/enums"
+import { SettingPage } from "../pages/SettingsPage"
+import { HistoryPage } from "../pages/HistoryPage"
 
 export const routes = [
     {
@@ -18,6 +20,16 @@ export const routes = [
     {
         path: DUAL,
         element: <GamePage gameMode={GameMode.DUAL} />,
+        error: <ErrorPage />
+    },
+    {
+        path: SETTINGS,
+        element: <SettingPage />,
+        error: <ErrorPage />
+    },
+    {
+        path: HISTORY,
+        element: <HistoryPage />,
         error: <ErrorPage />
     }
 ]

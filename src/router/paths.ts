@@ -1,3 +1,5 @@
 export const MENU = '/'
 export const SINGLE = '/single'
 export const DUAL = '/dual'
+export const SETTINGS = '/settings'
+export const HISTORY = '/history'

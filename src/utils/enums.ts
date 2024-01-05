@@ -6,3 +6,5 @@ export enum CellLocation {
     BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
 }
 export enum GameMode { SOLO, DUAL }
+export enum Theme { WHITE, BLACK }
+export enum Language { ENGLISH, UKRANIAN }

@@ -2,7 +2,7 @@ import svgZiro from '../assets/ziro.svg'
 import svgCross from '../assets/cross.svg'
 import svgFilterStyles from '../styles/svg/svgFilters.module.scss'
 import { Link } from 'react-router-dom'
-import { DUAL, SINGLE } from '../router/paths'
+import { DUAL, HISTORY, SETTINGS, SINGLE } from '../router/paths'
 import { SPACE } from '../utils/constants'
 
 export function MenuPage() {
@@ -77,8 +77,8 @@ export function MenuPage() {
 
                 <Link className={pageStyles.button} to={SINGLE}>Single</Link>
                 <Link className={pageStyles.button} to={DUAL}>Dual</Link>
-                <Link className={pageStyles.button} to={SINGLE}>History</Link>
-                <Link className={pageStyles.button} to={DUAL}>Settings</Link>
+                <Link className={pageStyles.button} to={HISTORY}>History</Link>
+                <Link className={pageStyles.button} to={SETTINGS}>Settings</Link>
             </div>
 
             <div className={pageStyles.backgroundContainer}>
