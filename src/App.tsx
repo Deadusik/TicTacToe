@@ -6,7 +6,7 @@ import { SPACE } from './utils/constants';
 import { Theme } from './utils/enums';
 
 function App() {
-  const [settings, setSettings] = useState(new AppSettings())
+  const [settings, setSettings] = useState<AppSettings>(new AppSettings())
 
   const styles = {
     mainContainer: [

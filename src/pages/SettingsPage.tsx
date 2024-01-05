@@ -10,15 +10,16 @@ import { AppSettingsContext } from "../context"
 import { AppSettings } from "../models/appSettings"
 
 export const SettingPage = () => {
-    const [isSoundOn, setIsSoundOn] = useState(true)
-    const [theme, setTheme] = useState(Theme.WHITE)
-    const [language, setLanguage] = useState(Language.UKRANIAN)
-    const { settings, setSettings } = useContext(AppSettingsContext)
+    const context = useContext(AppSettingsContext)
+
+    const [isSoundOn, setIsSoundOn] = useState(context?.settings.IsSoundOn || false)
+    const [theme, setTheme] = useState(context?.settings.Theme || Theme.WHITE)
+    const [language, setLanguage] = useState(context?.settings.Language || Language.ENGLISH)
 
     const soundImgSrc = isSoundOn ? soundOnSvgSrc : soundOffSvgSrc
 
     useEffect(() => {
-        setSettings(new AppSettings(language, theme, isSoundOn))
+        context?.setSettings(new AppSettings(language, theme, isSoundOn))
     }, [isSoundOn, theme, language])
 
     const styles = {
@@ -125,7 +126,7 @@ export const SettingPage = () => {
     }
 
     return (
-        <AppSettingsContext.Provider value={settings}>
+        <AppSettingsContext.Provider value={context}>
             <div className={styles.mainContainer}>
                 <div className={styles.contentContainer}>
                     <h1 className={styles.pageTitle}>Setting Page</h1>
