@@ -8,16 +8,17 @@ import svgFilters from '../styles/svg/svgFilters.module.scss'
 import { Language, Theme } from "../utils/enums"
 import { AppSettingsContext } from "../context"
 import { AppSettings } from "../models/appSettings"
+
 export const SettingPage = () => {
     const [isSoundOn, setIsSoundOn] = useState(true)
     const [theme, setTheme] = useState(Theme.WHITE)
     const [language, setLanguage] = useState(Language.UKRANIAN)
+    const { settings, setSettings } = useContext(AppSettingsContext)
 
-    let settings = useContext(AppSettingsContext)
     const soundImgSrc = isSoundOn ? soundOnSvgSrc : soundOffSvgSrc
 
     useEffect(() => {
-        settings = new AppSettings(language, theme, isSoundOn)
+        setSettings(new AppSettings(language, theme, isSoundOn))
     }, [isSoundOn, theme, language])
 
     const styles = {

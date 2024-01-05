@@ -1,4 +1,3 @@
 import { createContext } from "react";
-import { AppSettings } from "../models/appSettings";
 
-export const AppSettingsContext = createContext(new AppSettings())
+export const AppSettingsContext = createContext<any>(null)

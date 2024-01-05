@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { AppRouter } from './router/AppRouter';
 import { AppSettingsContext } from './context';
 import { AppSettings } from './models/appSettings';
@@ -6,9 +6,7 @@ import { SPACE } from './utils/constants';
 import { Theme } from './utils/enums';
 
 function App() {
-  const settings = useContext(AppSettingsContext)
-
-  console.log(settings)
+  const [settings, setSettings] = useState(new AppSettings())
 
   const styles = {
     mainContainer: [
@@ -19,7 +17,10 @@ function App() {
   }
 
   return (
-    <AppSettingsContext.Provider value={new AppSettings()}>
+    <AppSettingsContext.Provider value={{
+      settings,
+      setSettings
+    }}>
       <div className={styles.mainContainer}>
         <AppRouter />
       </div>
