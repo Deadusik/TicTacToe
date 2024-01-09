@@ -4,8 +4,11 @@ import svgFilterStyles from '../styles/svg/svgFilters.module.scss'
 import { Link } from 'react-router-dom'
 import { DUAL, HISTORY, SETTINGS, SINGLE } from '../router/paths'
 import { SPACE } from '../utils/constants'
+import { useTranslation } from 'react-i18next'
 
 export function MenuPage() {
+    const { t } = useTranslation('menu_translation')
+
     const pageStyles = {
         button: [
             'flex',
@@ -75,10 +78,10 @@ export function MenuPage() {
                     <span className="text-green-700">Toe</span>
                 </h1>
 
-                <Link className={pageStyles.button} to={SINGLE}>Single</Link>
-                <Link className={pageStyles.button} to={DUAL}>Dual</Link>
-                <Link className={pageStyles.button} to={HISTORY}>History</Link>
-                <Link className={pageStyles.button} to={SETTINGS}>Settings</Link>
+                <Link className={pageStyles.button} to={SINGLE}>{t('soloBtn')}</Link>
+                <Link className={pageStyles.button} to={DUAL}>{t('dualBtn')}</Link>
+                <Link className={pageStyles.button} to={HISTORY}>{t('historyBtn')}</Link>
+                <Link className={pageStyles.button} to={SETTINGS}>{t('settingsBtn')}</Link>
             </div>
 
             <div className={pageStyles.backgroundContainer}>

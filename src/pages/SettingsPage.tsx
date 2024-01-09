@@ -8,9 +8,29 @@ import svgFilters from '../styles/svg/svgFilters.module.scss'
 import { Language, Theme } from "../utils/enums"
 import { AppSettingsContext } from "../context"
 import { AppSettings } from "../models/appSettings"
+import { useTranslation } from "react-i18next"
 
 export const SettingPage = () => {
     const context = useContext(AppSettingsContext)
+    const { t, i18n } = useTranslation('settings_translation')
+
+    const changeLanguage = (language: Language) => {
+        let strLanguage = ''
+
+        switch (language) {
+            case Language.ENGLISH: {
+                strLanguage = 'en'
+                break
+            }
+            case Language.UKRANIAN: {
+                strLanguage = 'ua'
+                break
+            }
+            default: strLanguage = 'en'
+        }
+
+        i18n.changeLanguage(strLanguage)
+    }
 
     const [isSoundOn, setIsSoundOn] = useState(context?.settings.IsSoundOn || false)
     const [theme, setTheme] = useState(context?.settings.Theme || Theme.WHITE)
@@ -40,6 +60,9 @@ export const SettingPage = () => {
             'font-bold',
             'mb-2',
             'text-center'
+        ].join(SPACE),
+        pageTitleDark: [
+            'text-white'
         ].join(SPACE),
         settingTitle: [
             'text-xl',
@@ -129,7 +152,10 @@ export const SettingPage = () => {
         <AppSettingsContext.Provider value={context}>
             <div className={styles.mainContainer}>
                 <div className={styles.contentContainer}>
-                    <h1 className={styles.pageTitle}>Setting Page</h1>
+                    <h1 className={[
+                        styles.pageTitle,
+                        theme === Theme.WHITE ? '' : styles.pageTitleDark
+                    ].join(SPACE)}>{t('title')}</h1>
                     { /* Sound property */}
                     <div className={[styles.sound.container, styles.row].join(SPACE)}>
                         <h3 className={styles.settingTitle}>Sound</h3>
@@ -142,17 +168,17 @@ export const SettingPage = () => {
                     </div>
                     { /* Language property */}
                     <div className={[styles.language.option, styles.row].join(SPACE)}>
-                        <h3 className={styles.settingTitle}>Language</h3>
+                        <h3 className={styles.settingTitle}>{t('languageLabel')}</h3>
                         <select className={styles.language.selector}
                             defaultValue={language === Language.ENGLISH ? 'English' : 'Ukranian'}>
                             <option className={styles.language.option}
                                 value="english"
-                                onClick={() => setLanguage(Language.ENGLISH)}>
+                                onClick={() => changeLanguage(Language.ENGLISH)}>
                                 English
                             </option>
                             <option className={styles.language.option}
                                 value="ukranian"
-                                onClick={() => setLanguage(Language.UKRANIAN)}>
+                                onClick={() => changeLanguage(Language.UKRANIAN)}>
                                 Ukranian
                             </option>
                         </select>
