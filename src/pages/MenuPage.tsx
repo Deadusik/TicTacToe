@@ -1,5 +1,5 @@
-import svgZiro from '../assets/ziro.svg'
-import svgCross from '../assets/cross.svg'
+import svgZiro from '../assets/svgs/ziro.svg'
+import svgCross from '../assets/svgs/cross.svg'
 import svgFilterStyles from '../styles/svg/svgFilters.module.scss'
 import { Link } from 'react-router-dom'
 import { DUAL, HISTORY, SETTINGS, SINGLE } from '../router/paths'
@@ -7,7 +7,7 @@ import { SPACE } from '../utils/constants'
 import { useTranslation } from 'react-i18next'
 
 export function MenuPage() {
-    const { t } = useTranslation('menu_translation')
+    const { t } = useTranslation()
 
     const pageStyles = {
         button: [
@@ -78,10 +78,10 @@ export function MenuPage() {
                     <span className="text-green-700">Toe</span>
                 </h1>
 
-                <Link className={pageStyles.button} to={SINGLE}>{t('soloBtn')}</Link>
-                <Link className={pageStyles.button} to={DUAL}>{t('dualBtn')}</Link>
-                <Link className={pageStyles.button} to={HISTORY}>{t('historyBtn')}</Link>
-                <Link className={pageStyles.button} to={SETTINGS}>{t('settingsBtn')}</Link>
+                <Link className={pageStyles.button} to={SINGLE}>{t('menu.soloBtn')}</Link>
+                <Link className={pageStyles.button} to={DUAL}>{t('menu.dualBtn')}</Link>
+                <Link className={pageStyles.button} to={HISTORY}>{t('menu.historyBtn')}</Link>
+                <Link className={pageStyles.button} to={SETTINGS}>{t('menu.settingsBtn')}</Link>
             </div>
 
             <div className={pageStyles.backgroundContainer}>

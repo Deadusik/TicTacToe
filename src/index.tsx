@@ -5,7 +5,7 @@ import './styles/index.scss'
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import './locales/index'
+import './locales/i18n'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

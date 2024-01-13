@@ -1,17 +1,24 @@
 import { useTypedSelector } from "../../hooks/useTypedSelector"
 import { SPACE } from "../../utils/constants"
-import { GameStatus } from "../../utils/enums"
-import crossSvgSrc from '../../assets/cross.svg'
-import ziroSvgSrc from '../../assets/ziro.svg'
-import handShakeSvg from '../../assets/handShake.svg'
+import { GameStatus, Theme } from "../../utils/enums"
+import crossSvgSrc from '../../assets/svgs/cross.svg'
+import ziroSvgSrc from '../../assets/svgs/ziro.svg'
+import handShakeSvg from '../../assets/svgs/handShake.svg'
 import svgFilterStyles from '../../styles/svg/svgFilters.module.scss'
 import { useActions } from "../../hooks/useActions"
 import { Link } from "react-router-dom"
 import { MENU } from "../../router/paths"
+import { useContext } from "react"
+import { AppSettingsContext } from "../../context"
+import { useTranslation } from "react-i18next"
 
 export const GameEndModal = () => {
     const { gameStatus } = useTypedSelector(store => store.game)
     const { endGame } = useActions()
+
+    const context = useContext(AppSettingsContext)
+    const theme = context?.settings.Theme ?? Theme.WHITE
+    const { t } = useTranslation()
 
     const componentStyles = {
         container: [
@@ -30,7 +37,7 @@ export const GameEndModal = () => {
             'items-center',
             'rounded',
             'w-[500px]',
-            'bg-white',
+            theme === Theme.WHITE ? 'bg-white' : 'bg-[#343434]',
             'z-11',
             'py-3',
             'px-[100px]'
@@ -38,6 +45,7 @@ export const GameEndModal = () => {
         title: [
             'text-4xl',
             'font-bold',
+            theme === Theme.WHITE ? 'text-black' : 'text-white'
         ].join(SPACE),
         winnerTitle: [
             'text-2xl',
@@ -78,12 +86,12 @@ export const GameEndModal = () => {
     return (
         <div className={componentStyles.container}>
             <div className={componentStyles.modalContainer}>
-                <h1 className={componentStyles.title}>Game is end!</h1>
+                <h1 className={componentStyles.title}>{t('winDialog.title')}</h1>
                 {
                     gameStatus === GameStatus.DRAW ?
-                        <h2 className={componentStyles.winnerTitle}>Game is draw</h2>
+                        <h2 className={componentStyles.winnerTitle}>{t('winDialog.draw')}</h2>
                         :
-                        <h2 className={componentStyles.winnerTitle}>Winner is</h2>
+                        <h2 className={componentStyles.winnerTitle}>{t('winDialog.winner')}</h2>
                 }
                 <img className={[componentStyles.svg, svgFilter].join(SPACE)} src={svgSrc} alt="winner" />
                 <div className={componentStyles.buttonContainer}>
@@ -91,12 +99,12 @@ export const GameEndModal = () => {
                         .join(SPACE)}
                         onClick={endGame}
                         to={MENU}>
-                        Menu
+                        {t('winDialog.menu')}
                     </Link>
                     <button className={[componentStyles.button, componentStyles.playButton]
                         .join(SPACE)}
                         onClick={endGame}>
-                        Play Again
+                        {t('winDialog.play')}
                     </button>
                 </div>
             </div>

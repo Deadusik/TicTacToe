@@ -7,4 +7,4 @@ export enum CellLocation {
 }
 export enum GameMode { SOLO, DUAL }
 export enum Theme { WHITE, BLACK }
-export enum Language { ENGLISH, UKRANIAN }
+export enum Language { ENGLISH = 'en', UKRANIAN = 'ua' }

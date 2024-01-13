@@ -2,8 +2,8 @@ import { Link } from "react-router-dom"
 import { useActions } from "../hooks/useActions"
 import { SPACE } from "../utils/constants"
 import { MENU } from "../router/paths"
-import exitSvgSrc from '../assets/exit.svg'
-import restartSvgSrc from '../assets/restart.svg'
+import exitSvgSrc from '../assets/svgs/exit.svg'
+import restartSvgSrc from '../assets/svgs/restart.svg'
 import svgFilters from '../styles/svg/svgFilters.module.scss'
 
 export function GamePanel() {

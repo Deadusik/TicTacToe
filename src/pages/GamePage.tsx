@@ -1,13 +1,14 @@
 import { GamePanel } from "../components/GamePanel";
-import gridSVG from '../assets/grid.svg'
-import styles from '../styles/pages/GamePage.module.scss'
+import gridSVG from '../assets/svgs/grid.svg'
+import svgFilter from '../styles/svg/svgFilters.module.scss'
 import { SPACE } from "../utils/constants";
 import { GameField } from "../components/game_field/GameField";
-import { GameMode, GameStatus } from "../utils/enums";
-import { useEffect } from "react";
+import { GameMode, GameStatus, Theme } from "../utils/enums";
+import { useContext, useEffect } from "react";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { GameEndModal } from "../components/modal/GameEndModal";
+import { AppSettingsContext } from "../context";
 
 interface IGamePageParams {
     gameMode: GameMode
@@ -16,6 +17,8 @@ interface IGamePageParams {
 export function GamePage({ gameMode }: IGamePageParams) {
     const { isCrossTurn, gameStatus } = useTypedSelector(state => state.game)
     const { makeMoveAI } = useActions()
+    const context = useContext(AppSettingsContext)
+    const theme = context?.settings.Theme ?? Theme.WHITE
 
     useEffect(() => {
         if (gameMode === GameMode.SOLO
@@ -31,7 +34,7 @@ export function GamePage({ gameMode }: IGamePageParams) {
             'h-screen'
         ].join(SPACE),
         girdSVG: [
-            styles.SVGGRid,
+            theme === Theme.WHITE ? svgFilter.Grid : svgFilter.GridLight,
             'w-[500px]',
             'absolute',
             'top-1/2',

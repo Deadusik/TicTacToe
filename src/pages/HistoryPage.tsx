@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 import { SPACE } from "../utils/constants"
 import { MENU } from "../router/paths"
-import soundOnSvgSrc from '../assets/sound_on.svg'
-import soundOffSvgSrc from '../assets/sound_off.svg'
+import soundOnSvgSrc from '../assets/svgs/sound_on.svg'
+import soundOffSvgSrc from '../assets/svgs/sound_off.svg'
 import { useState } from "react"
 import svgFilters from '../styles/svg/svgFilters.module.scss'
 

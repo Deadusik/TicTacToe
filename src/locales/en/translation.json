@@ -1,0 +1,24 @@
+{
+    "menu": {
+        "soloBtn": "Single",
+        "dualBtn": "Dual",
+        "historyBtn": "History",
+        "settingsBtn": "Settings"
+    },
+    "settings": {
+        "title": "Game Settings",
+        "soundLabel": "Sound",
+        "themeLabel": "Theme",
+        "languageLabel": "Language",
+        "optionEN": "English",
+        "optionUA": "Ukranian",
+        "backBtn": "Back to menu"
+    },
+    "winDialog": {
+        "title": "Game is end!",
+        "winner": "Winner is",
+        "draw": "Game is draw",
+        "menu": "Menu",
+        "play": "Play again"
+    }
+}

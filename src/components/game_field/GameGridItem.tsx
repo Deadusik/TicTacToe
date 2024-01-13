@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import crossSVG from '../../assets/cross.svg'
-import ziroSVG from '../../assets/ziro.svg'
+import crossSVG from '../../assets/svgs/cross.svg'
+import ziroSVG from '../../assets/svgs/ziro.svg'
 import { SPACE } from '../../utils/constants'
 import svgFilterStyles from '../../styles/svg/svgFilters.module.scss'
 import { CellTypes, GameStatus } from '../../utils/enums'
