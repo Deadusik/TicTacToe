@@ -1,16 +1,11 @@
 import { Link } from "react-router-dom"
 import { SPACE } from "../utils/constants"
 import { MENU } from "../router/paths"
-import soundOnSvgSrc from '../assets/svgs/sound_on.svg'
-import soundOffSvgSrc from '../assets/svgs/sound_off.svg'
-import { useState } from "react"
-import svgFilters from '../styles/svg/svgFilters.module.scss'
+import ziroSvgSrc from '../assets/svgs/ziro.svg'
+import crossSvgSrc from '../assets/svgs/cross.svg'
+import svgFilterStyles from '../styles/svg/svgFilters.module.scss'
 
 export const HistoryPage = () => {
-    const [isSoundOn, setIsSoundOn] = useState(true)
-
-    const soundImgSrc = isSoundOn ? soundOnSvgSrc : soundOffSvgSrc
-
     const styles = {
         mainContainer: [
             'w-full',
@@ -28,11 +23,6 @@ export const HistoryPage = () => {
             'font-bold',
             'mb-2'
         ].join(SPACE),
-        settingTitle: [
-            'text-xl',
-            'text-white',
-            'font-bold',
-        ].join(SPACE),
         menuLink: [
             'flex',
             'rounded',
@@ -44,51 +34,44 @@ export const HistoryPage = () => {
             'py-2',
             'mt-1',
         ].join(SPACE),
-        row: [
+        list: [
+            'flex',
+            'flex-col',
+            'gap-2'
+        ].join(SPACE),
+        listItem: [
             'flex',
             'justify-between',
             'items-center',
-            'mt-1',
-            'px-1',
             'bg-black/25',
-            'rounded'
+            'rounded',
+            'p-2',
         ].join(SPACE),
-        soundContainer: [
-
+        itemIcon: [
+            'd-inline',
+            'h-[25px]'
         ].join(SPACE),
-        languageContaienr: [
-
-        ].join(SPACE),
-        themeContainer: [
-
-        ].join(SPACE),
-        soundImg: [
-            'w-[30px]',
-            'h-[30px]',
-            svgFilters.WhiteFilter,
-            'cursor-pointer'
-        ].join(SPACE),
+        crossSvg: [
+            svgFilterStyles.Cross,
+        ],
+        circleSvg: [
+            svgFilterStyles.Circle,
+        ],
+        itemText: [
+            'text-2xl',
+        ].join(SPACE)
     }
 
     return (
         <div className={styles.mainContainer}>
             <div className={styles.contentContainer}>
-                <h1 className={styles.pageTitle}>Setting Page</h1>
-                <div className={[styles.soundContainer, styles.row].join(SPACE)}>
-                    <h3 className={styles.settingTitle}>Sound</h3>
-                    <img onClick={() => {
-                        setIsSoundOn(!isSoundOn)
-                    }}
-                        className={styles.soundImg}
-                        src={soundImgSrc}
-                        alt="sound" />
-                </div>
-                <div className={[styles.languageContaienr, styles.row].join(SPACE)}>
-                    <h3 className={styles.settingTitle}>Language</h3>
-                </div>
-                <div className={[styles.themeContainer, styles.row].join(SPACE)}>
-                    <h3 className={styles.settingTitle}>Theme</h3>
-                </div>
+                <h1 className={styles.pageTitle}>History</h1>
+                    <div className={styles.list}>
+                        <div className={styles.listItem}>
+                            <p className={styles.itemText}>Won for</p>
+                            <img className={styles.itemIcon} src={crossSvgSrc} alt="Game 1 Icon"/>
+                        </div>
+                    </div>
                 <Link className={styles.menuLink} to={MENU}>BACK TO MENU</Link>
             </div>
         </div>

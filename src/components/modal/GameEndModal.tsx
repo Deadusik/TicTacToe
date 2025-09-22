@@ -40,7 +40,7 @@ export const GameEndModal = () => {
             theme === Theme.WHITE ? 'bg-white' : 'bg-[#343434]',
             'z-11',
             'py-3',
-            'px-[100px]'
+            'px-[100px]',
         ].join(SPACE),
         title: [
             'text-4xl',
