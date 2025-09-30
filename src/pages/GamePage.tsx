@@ -9,6 +9,7 @@ import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { GameEndModal } from "../components/modal/GameEndModal";
 import { AppSettingsContext } from "../context";
+import { logGame } from "../utils/game";
 
 interface IGamePageParams {
     gameMode: GameMode
@@ -26,6 +27,12 @@ export function GamePage({ gameMode }: IGamePageParams) {
             && gameStatus === GameStatus.GAME_ON)
             makeMoveAI()
     }, [isCrossTurn])
+
+    useEffect(() => {
+        if (gameStatus !== GameStatus.GAME_ON) {
+            logGame(gameStatus)
+        }
+    }, [gameStatus])
 
     const pageStyles = {
         mianContainer: [

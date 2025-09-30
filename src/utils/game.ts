@@ -129,3 +129,10 @@ const getGameStatus = (cellType: CellTypes): GameStatus => {
             return GameStatus.GAME_ON
     }
 }
+
+export const logGame = (gameStatus: GameStatus) => {
+    let history = localStorage.getItem('history')
+    let historyArray: GameStatus[] = history ? JSON.parse(history) : []
+    historyArray.push(gameStatus)
+    localStorage.setItem('history', JSON.stringify(historyArray))
+}

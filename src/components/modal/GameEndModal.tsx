@@ -80,6 +80,7 @@ export const GameEndModal = () => {
             'h-[300px]'
         ].join(SPACE)
     }
+
     const [svgSrc, svgFilter] = gameStatus === GameStatus.DRAW ? [handShakeSvg, ''] :
         gameStatus === GameStatus.CROSS_WIN ? [crossSvgSrc, svgFilterStyles.Cross] : [ziroSvgSrc, svgFilterStyles.Circle]
 
