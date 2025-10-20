@@ -2,6 +2,10 @@ import { GameFieldCell, IGameFieldCell } from "../models/gameFieldCell";
 import { GAME_FIELD_CELL_SIZE } from "./constants";
 import { CellLocation, CellTypes, GameStatus } from "./enums";
 import { getRandomInt } from "./random";
+import circleSvgSrc from '../assets/svgs/ziro.svg'
+import crossSvgSrc from '../assets/svgs/cross.svg'
+import drawSvgSrc from '../assets/svgs/handShake.svg'
+import svgFilterStyles from '../styles/svg/svgFilters.module.scss'
 
 export const initGameField = (): Array<IGameFieldCell> => {
     let gameField = []
@@ -135,4 +139,46 @@ export const logGame = (gameStatus: GameStatus) => {
     let historyArray: GameStatus[] = history ? JSON.parse(history) : []
     historyArray.push(gameStatus)
     localStorage.setItem('history', JSON.stringify(historyArray))
+}
+
+export const getSvgSrcByWinner = (winner: number): string => {
+    let svg = ''
+
+    switch (winner) {
+        case 1: {
+            svg = drawSvgSrc
+            break
+        }
+        case 2: {
+            svg = circleSvgSrc
+            break
+        }
+        case 3: {
+            svg = crossSvgSrc
+            break
+        }
+    }
+
+    return svg
+}
+
+export const getSvgFilterByWinner = (winner: number): string => {
+    let filter = ''
+
+    switch (winner) {
+        case 1: {
+            filter = ''
+            break
+        }
+        case 2: {
+            filter = svgFilterStyles.Circle
+            break
+        }
+        case 3: {
+            filter = svgFilterStyles.Cross
+            break
+        }
+    }
+
+    return filter
 }
