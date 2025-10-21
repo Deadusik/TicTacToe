@@ -96,7 +96,7 @@ export const checkIsGameEnd = (field: Array<IGameFieldCell>): GameStatus => {
     return result
 }
 
-export const getCellFromAI = (isCrossTurn: boolean, field: IGameFieldCell[]): GameFieldCell => {
+export const getCellFromEasyAI = (isCrossTurn: boolean, field: IGameFieldCell[]): GameFieldCell => {
     const cellType = isCrossTurn ? CellTypes.CROSS : CellTypes.ZIRO
 
     while (true) {
@@ -105,6 +105,77 @@ export const getCellFromAI = (isCrossTurn: boolean, field: IGameFieldCell[]): Ga
             return new GameFieldCell(cellType, position)
         }
     }
+}
+
+export const getCellFromHardAI = (isCrossTurn: boolean, field: IGameFieldCell[]): GameFieldCell => {
+    const cellType = isCrossTurn ? CellTypes.CROSS : CellTypes.ZIRO
+    const enemyType = isCrossTurn ? CellTypes.ZIRO : CellTypes.CROSS
+
+    const winMove = findWinningMove(field, cellType)
+    if (winMove !== null) return new GameFieldCell(cellType, winMove)
+
+    const blockMove = findWinningMove(field, enemyType)
+    if (blockMove !== null) return new GameFieldCell(cellType, blockMove)
+
+    if (field[4].Type === CellTypes.EMPTY) {
+        return new GameFieldCell(cellType, 4)
+    }
+
+    const corners = [0, 2, 6, 8].filter(i => field[i].Type === CellTypes.EMPTY)
+    if (corners.length > 0) {
+        const corner = corners[getRandomInt(corners.length)]
+        return new GameFieldCell(cellType, corner)
+    }
+
+    while (true) {
+        const position = getRandomInt(9)
+        if (field[position].Type === CellTypes.EMPTY) {
+            return new GameFieldCell(cellType, position)
+        }
+    }
+}
+
+export const getCellFromMiddleAI = (isCrossTurn: boolean, field: IGameFieldCell[]): GameFieldCell => {
+    const cellType = isCrossTurn ? CellTypes.CROSS : CellTypes.ZIRO
+    const enemyType = isCrossTurn ? CellTypes.ZIRO : CellTypes.CROSS
+
+    const winMove = findWinningMove(field, cellType)
+    if (winMove !== null) return new GameFieldCell(cellType, winMove)
+
+    const blockMove = findWinningMove(field, enemyType)
+    if (blockMove !== null) return new GameFieldCell(cellType, blockMove)
+
+    const emptyCells = field
+        .map((c, i) => (c.Type === CellTypes.EMPTY ? i : -1))
+        .filter(i => i !== -1)
+
+    const position = emptyCells[getRandomInt(emptyCells.length)]
+    return new GameFieldCell(cellType, position)
+}
+
+function findWinningMove(field: IGameFieldCell[], type: CellTypes): number | null {
+    const lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ]
+
+    for (const [a, b, c] of lines) {
+        const cells = [field[a].Type, field[b].Type, field[c].Type]
+        const countSelf = cells.filter(t => t === type).length
+        const countEmpty = cells.filter(t => t === CellTypes.EMPTY).length
+        if (countSelf === 2 && countEmpty === 1) {
+            const emptyIndex = [a, b, c].find(i => field[i].Type === CellTypes.EMPTY)!
+            return emptyIndex
+        }
+    }
+
+    return null
 }
 
 const checkIsDraw = (field: IGameFieldCell[]): GameStatus => {

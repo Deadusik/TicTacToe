@@ -5,6 +5,6 @@ export enum CellLocation {
     MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT,
     BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT
 }
-export enum GameMode { SOLO, DUAL }
+export enum GameMode { SOLO_EASY, SOLO_MEDIUM, SOLO_HARD, DUAL }
 export enum Theme { WHITE, BLACK }
 export enum Language { ENGLISH = 'en', UKRANIAN = 'ua' }

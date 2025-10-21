@@ -14,6 +14,7 @@ import { GameMode, GameStatus, Theme } from "../utils/enums";
 // svg stuff
 import gridSVG from '../assets/svgs/grid.svg'
 import svgFilter from '../styles/svg/svgFilters.module.scss'
+import { setTimeout } from "timers/promises";
 
 interface IGamePageParams {
     gameMode: GameMode
@@ -21,15 +22,15 @@ interface IGamePageParams {
 
 export function GamePage({ gameMode }: IGamePageParams) {
     const { isCrossTurn, gameStatus } = useTypedSelector(state => state.game)
-    const { makeMoveAI } = useActions()
+    const { makeMoveEasyAI, makeMoveMiddleAI, makeMoveHardAI } = useActions()
     const context = useContext(AppSettingsContext)
     const theme = context?.settings.Theme ?? Theme.WHITE
 
     useEffect(() => {
-        if (gameMode === GameMode.SOLO
+        if (gameMode !== GameMode.DUAL
             && !isCrossTurn
             && gameStatus === GameStatus.GAME_ON)
-            makeMoveAI()
+            callAIByGameMode(gameMode)
     }, [isCrossTurn])
 
     useEffect(() => {
@@ -37,6 +38,24 @@ export function GamePage({ gameMode }: IGamePageParams) {
             logGame(gameStatus)
         }
     }, [gameStatus])
+
+    function callAIByGameMode(mode: GameMode) {
+        switch (mode) {
+            case GameMode.SOLO_EASY: {
+                makeMoveEasyAI()
+                break
+            }
+            case GameMode.SOLO_MEDIUM: {
+                makeMoveMiddleAI()
+                break
+            }
+            case GameMode.SOLO_HARD: {
+                makeMoveHardAI()
+                break
+            }
+            default: makeMoveMiddleAI()
+        }
+    }
 
     const pageStyles = {
         mianContainer: [

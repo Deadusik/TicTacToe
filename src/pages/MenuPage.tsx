@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { DUAL, HISTORY, SETTINGS, SINGLE } from '../router/paths'
+import { DUAL, HISTORY, LEVEL, SETTINGS } from '../router/paths'
 import { useTranslation } from 'react-i18next'
 // utils
 import { SPACE } from '../utils/constants'
@@ -10,6 +10,7 @@ import svgCross from '../assets/svgs/cross.svg'
 import svgFilterStyles from '../styles/svg/svgFilters.module.scss'
 import { useContext } from 'react'
 import { AppSettingsContext } from '../context'
+import { menuButton } from '../utils/tailwind_styles'
 
 export function MenuPage() {
     const { t } = useTranslation()
@@ -18,22 +19,7 @@ export function MenuPage() {
 
     const pageStyles = {
         button: [
-            'flex',
-            'justify-center',
-            'items-center',
-            'w-3/5',
-            'lg:max-w-[30%]',
-            'sm:max-w-[100%]',
-            'h-20',
-            'mt-1',
-            'bg-indigo-500',
-            'border',
-            'rounded',
-            'border-sky-500',
-            'font-bold',
-            'text-white',
-            'text-xl',
-            'hover:bg-indigo-400'
+            menuButton
         ].join(SPACE),
         title: [
             'animate-bounce',
@@ -85,7 +71,7 @@ export function MenuPage() {
                     <span className="text-green-700">Toe</span>
                 </h1>
 
-                <Link className={pageStyles.button} onClick={() => playBtnSound(!isSoundOn)} to={SINGLE}>{t('menu.soloBtn')}</Link>
+                <Link className={pageStyles.button} onClick={() => playBtnSound(!isSoundOn)} to={LEVEL}>{t('menu.soloBtn')}</Link>
                 <Link className={pageStyles.button} onClick={() => playBtnSound(!isSoundOn)} to={DUAL}>{t('menu.dualBtn')}</Link>
                 <Link className={pageStyles.button} onClick={() => playBtnSound(!isSoundOn)} to={HISTORY}>{t('menu.historyBtn')}</Link>
                 <Link className={pageStyles.button} onClick={() => playBtnSound(!isSoundOn)} to={SETTINGS}>{t('menu.settingsBtn')}</Link>
@@ -128,7 +114,6 @@ export function MenuPage() {
                     ].join(SPACE)
                 } src={svgCross} alt='cross' draggable='false' />
             </div>
-
         </div >
     )
 }

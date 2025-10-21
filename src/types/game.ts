@@ -3,7 +3,9 @@ import { GameStatus } from "../utils/enums"
 
 export enum GameActionTypes {
     MAKE_MOVE,
-    AI_MAKE_MOVE,
+    EASY_AI_MAKE_MOVE,
+    MIDDLE_AI_MAKE_MOVE,
+    HARD_AI_MAKE_MOVE,
     END_GAME
 }
 
@@ -18,12 +20,21 @@ export interface IMakeMove {
     payload: IGameFieldCell
 }
 
-export interface IMakeMoveAI {
-    type: GameActionTypes.AI_MAKE_MOVE
+export interface IMakeMoveEasyAI {
+    type: GameActionTypes.EASY_AI_MAKE_MOVE
 }
+
+export interface IMakeMoveMiddleAI {
+    type: GameActionTypes.MIDDLE_AI_MAKE_MOVE
+}
+
+export interface IMakeMoveHardAI {
+    type: GameActionTypes.HARD_AI_MAKE_MOVE
+}
+
 
 export interface IEndGame {
     type: GameActionTypes.END_GAME
 }
 
-export type IGameAction = IMakeMove | IEndGame | IMakeMoveAI
+export type IGameAction = IMakeMove | IEndGame | IMakeMoveEasyAI | IMakeMoveMiddleAI | IMakeMoveHardAI
