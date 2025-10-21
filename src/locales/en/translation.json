@@ -19,7 +19,8 @@
         "backBtn": "BACK TO MENU",
         "placeHolder": "History is empty 🤷🏼‍♂️",
         "title": "History",
-        "itemText": "Won:"
+        "itemText": "Won:",
+        "itemCountText": "Game #"
     },
     "winDialog": {
         "title": "Game is end!",

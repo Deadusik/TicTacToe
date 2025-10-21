@@ -1,22 +1,29 @@
 import { Link } from "react-router-dom"
-import { SPACE } from "../utils/constants"
 import { MENU } from "../router/paths"
 import { useContext, useState } from "react"
 import { AppSettingsContext } from "../context"
-import { Theme } from "../utils/enums"
 import HistoryItem from "../components/info/HistoryItem"
 import { useTranslation } from "react-i18next"
+import clearSoundSrc from '../assets/sounds/clear.wav'
+// utils
+import { Theme } from "../utils/enums"
+import { SPACE } from "../utils/constants"
+import { playBtnSound, playSound } from "../utils/game"
 
 export const HistoryPage = () => {
+    const { t } = useTranslation()
+
     const context = useContext(AppSettingsContext)
     const theme = context?.settings.Theme ?? Theme.WHITE
     const textColor = theme === Theme.WHITE ? 'text-dark' : 'text-white'
+    const isSoundOn = context?.settings.IsSoundOn ?? false
+
     const [historyList, setHistoryList] = useState<number[]>(JSON.parse(localStorage.getItem('history') || '[]'))
-    const { t } = useTranslation()
 
     const clearHistoryHandler = () => {
         localStorage.removeItem('history')
         setHistoryList([])
+        playSound(clearSoundSrc, !isSoundOn)
     }
 
     const styles = {
@@ -75,10 +82,10 @@ export const HistoryPage = () => {
                 <h1 className={styles.pageTitle}>{t('history.title')}</h1>
                 {/* list */}
                 <div className={styles.list}>
-                    {historyList.map((winner, index) => {
+                    {[...historyList].reverse().map((winner, index) => {
                         return (
                             <HistoryItem
-                                index={index + 1}
+                                index={historyList.length - index}
                                 winner={winner}
                                 textColor={textColor}
                                 key={index} />
@@ -93,7 +100,7 @@ export const HistoryPage = () => {
                     onClick={clearHistoryHandler}>
                     {t('history.clearBtn')}
                 </button>
-                <Link className={styles.menuLink} to={MENU}>{t('history.backBtn')}</Link>
+                <Link className={styles.menuLink} onClick={() => playBtnSound(!isSoundOn)} to={MENU}>{t('history.backBtn')}</Link>
             </div>
         </div>
     )

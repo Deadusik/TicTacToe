@@ -1,21 +1,29 @@
-import { useState } from 'react'
-import crossSVG from '../../assets/svgs/cross.svg'
-import ziroSVG from '../../assets/svgs/ziro.svg'
-import { SPACE } from '../../utils/constants'
-import svgFilterStyles from '../../styles/svg/svgFilters.module.scss'
-import { CellTypes, GameStatus } from '../../utils/enums'
+import { useContext, useState } from 'react'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { useActions } from '../../hooks/useActions'
 import { GameFieldCell, IGameFieldCell } from '../../models/gameFieldCell'
+import { AppSettingsContext } from '../../context'
+import moveSoundSrc from '../../assets/sounds/move.wav'
+// utils
+import { playSound } from '../../utils/game'
+import { SPACE } from '../../utils/constants'
+import { CellTypes, GameStatus } from '../../utils/enums'
+// svg stuff 
+import crossSVG from '../../assets/svgs/cross.svg'
+import ziroSVG from '../../assets/svgs/ziro.svg'
+import svgFilterStyles from '../../styles/svg/svgFilters.module.scss'
 
 interface IGamePageParams {
     position: number
 }
 
 export function GameGridItem({ position }: IGamePageParams) {
-    const [isMouseEnter, setIsMouseEnter] = useState(false)
     const { makeMove } = useActions()
     const { field, isCrossTurn, gameStatus } = useTypedSelector(state => state.game)
+    const context = useContext(AppSettingsContext)
+    const isSoundOn = context?.settings.IsSoundOn ?? false
+
+    const [isMouseEnter, setIsMouseEnter] = useState(false)
 
     const cell: IGameFieldCell = field[position - 1]
     const cellMoveType
@@ -99,6 +107,7 @@ export function GameGridItem({ position }: IGamePageParams) {
             cellMoveType,
             position - 1
         ))
+        playSound(moveSoundSrc, !isSoundOn)
     }
 
     return (

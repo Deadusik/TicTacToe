@@ -1,13 +1,31 @@
 import { Link } from "react-router-dom"
 import { useActions } from "../hooks/useActions"
-import { SPACE } from "../utils/constants"
 import { MENU } from "../router/paths"
+import { useContext } from "react"
+import { AppSettingsContext } from "../context"
+import resetSoundSrc from '../assets/sounds/clear.wav'
+// utils
+import { playBtnSound, playSound } from "../utils/game"
+import { SPACE } from "../utils/constants"
+// svg stuff
 import exitSvgSrc from '../assets/svgs/exit.svg'
 import restartSvgSrc from '../assets/svgs/restart.svg'
 import svgFilters from '../styles/svg/svgFilters.module.scss'
 
 export function GamePanel() {
     const { endGame } = useActions()
+    const context = useContext(AppSettingsContext)
+    const isSoundOn = context?.settings.IsSoundOn ?? false
+
+    const restartHandler = () => {
+        endGame()
+        playSound(resetSoundSrc, !isSoundOn)
+    }
+
+    const exitHandler = () => {
+        endGame()
+        playBtnSound(!isSoundOn)
+    }
 
     const componentStyles = {
         mainContainer: [
@@ -54,10 +72,10 @@ export function GamePanel() {
     return (
         <div className={componentStyles.mainContainer}>
             <div className={componentStyles.gameController}>
-                <button className={componentStyles.button} onClick={endGame}>
+                <button className={componentStyles.button} onClick={restartHandler}>
                     <img className={componentStyles.svgIcon} src={restartSvgSrc} alt="restart" />
                 </button>
-                <Link className={componentStyles.button} onClick={endGame} to={MENU}>
+                <Link className={componentStyles.button} onClick={exitHandler} to={MENU}>
                     <img className={componentStyles.svgIcon} src={exitSvgSrc} alt="exit" />
                 </Link>
             </div>

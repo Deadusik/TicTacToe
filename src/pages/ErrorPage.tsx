@@ -1,5 +1,5 @@
 export function ErrorPage() {
     return (
-        <div></div>
+        <div>OOps... SOmethIng wEnt wrOng :{"("}</div>
     )
 }

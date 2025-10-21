@@ -1,10 +1,14 @@
 import { GameFieldCell, IGameFieldCell } from "../models/gameFieldCell";
 import { GAME_FIELD_CELL_SIZE } from "./constants";
 import { CellLocation, CellTypes, GameStatus } from "./enums";
-import { getRandomInt } from "./random";
+import { getRandomInt } from "./random"
+// svgs 
 import circleSvgSrc from '../assets/svgs/ziro.svg'
 import crossSvgSrc from '../assets/svgs/cross.svg'
 import drawSvgSrc from '../assets/svgs/handShake.svg'
+// sound
+import btnSoundSrc from '../assets/sounds/blip1.wav'
+// styles 
 import svgFilterStyles from '../styles/svg/svgFilters.module.scss'
 
 export const initGameField = (): Array<IGameFieldCell> => {
@@ -181,4 +185,18 @@ export const getSvgFilterByWinner = (winner: number): string => {
     }
 
     return filter
+}
+
+export const playBtnSound = (isMuted: boolean) => {
+    if (!isMuted) {
+        const audio = new Audio(btnSoundSrc)
+        audio.play()
+    }
+}
+
+export const playSound = (soundSrc: string, isMuted: boolean) => {
+    if (!isMuted) {
+        const audio = new Audio(soundSrc)
+        audio.play()
+    }
 }

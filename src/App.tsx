@@ -8,7 +8,7 @@ import i18n from './locales/i18n';
 
 function App() {
   const theme = Number(localStorage.getItem('theme') || Theme.WHITE)
-  const [settings, setSettings] = useState<AppSettings>(new AppSettings(theme, false))
+  const [settings, setSettings] = useState<AppSettings>(new AppSettings(theme, true))
 
   const styles = {
     mainContainer: [

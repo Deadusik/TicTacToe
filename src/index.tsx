@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './styles/index.scss'
 import { BrowserRouter } from 'react-router-dom';
+//redux
 import { Provider } from 'react-redux';
 import { store } from './store';
+// other
 import './locales/i18n'
+import './styles/index.scss'
+import App from './App';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

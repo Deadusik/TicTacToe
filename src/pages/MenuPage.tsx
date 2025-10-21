@@ -1,13 +1,20 @@
+import { Link } from 'react-router-dom'
+import { DUAL, HISTORY, SETTINGS, SINGLE } from '../router/paths'
+import { useTranslation } from 'react-i18next'
+// utils
+import { SPACE } from '../utils/constants'
+import { playBtnSound } from '../utils/game'
+// svg stuff 
 import svgZiro from '../assets/svgs/ziro.svg'
 import svgCross from '../assets/svgs/cross.svg'
 import svgFilterStyles from '../styles/svg/svgFilters.module.scss'
-import { Link } from 'react-router-dom'
-import { DUAL, HISTORY, SETTINGS, SINGLE } from '../router/paths'
-import { SPACE } from '../utils/constants'
-import { useTranslation } from 'react-i18next'
+import { useContext } from 'react'
+import { AppSettingsContext } from '../context'
 
 export function MenuPage() {
     const { t } = useTranslation()
+    const context = useContext(AppSettingsContext)
+    const isSoundOn = context?.settings.IsSoundOn ?? false
 
     const pageStyles = {
         button: [
@@ -78,10 +85,10 @@ export function MenuPage() {
                     <span className="text-green-700">Toe</span>
                 </h1>
 
-                <Link className={pageStyles.button} to={SINGLE}>{t('menu.soloBtn')}</Link>
-                <Link className={pageStyles.button} to={DUAL}>{t('menu.dualBtn')}</Link>
-                <Link className={pageStyles.button} to={HISTORY}>{t('menu.historyBtn')}</Link>
-                <Link className={pageStyles.button} to={SETTINGS}>{t('menu.settingsBtn')}</Link>
+                <Link className={pageStyles.button} onClick={() => playBtnSound(!isSoundOn)} to={SINGLE}>{t('menu.soloBtn')}</Link>
+                <Link className={pageStyles.button} onClick={() => playBtnSound(!isSoundOn)} to={DUAL}>{t('menu.dualBtn')}</Link>
+                <Link className={pageStyles.button} onClick={() => playBtnSound(!isSoundOn)} to={HISTORY}>{t('menu.historyBtn')}</Link>
+                <Link className={pageStyles.button} onClick={() => playBtnSound(!isSoundOn)} to={SETTINGS}>{t('menu.settingsBtn')}</Link>
             </div>
 
             <div className={pageStyles.backgroundContainer}>

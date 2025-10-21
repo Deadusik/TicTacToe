@@ -1,24 +1,30 @@
+import { useContext } from "react"
+import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
+import { MENU } from "../../router/paths"
+import { AppSettingsContext } from "../../context"
+// redux
 import { useTypedSelector } from "../../hooks/useTypedSelector"
+import { useActions } from "../../hooks/useActions"
+// utils
 import { SPACE } from "../../utils/constants"
 import { GameStatus, Theme } from "../../utils/enums"
+// svgs
 import crossSvgSrc from '../../assets/svgs/cross.svg'
 import ziroSvgSrc from '../../assets/svgs/ziro.svg'
 import handShakeSvg from '../../assets/svgs/handShake.svg'
+// styles 
 import svgFilterStyles from '../../styles/svg/svgFilters.module.scss'
-import { useActions } from "../../hooks/useActions"
-import { Link } from "react-router-dom"
-import { MENU } from "../../router/paths"
-import { useContext } from "react"
-import { AppSettingsContext } from "../../context"
-import { useTranslation } from "react-i18next"
+import { playBtnSound } from "../../utils/game"
 
 export const GameEndModal = () => {
     const { gameStatus } = useTypedSelector(store => store.game)
     const { endGame } = useActions()
+    const { t } = useTranslation()
 
     const context = useContext(AppSettingsContext)
     const theme = context?.settings.Theme ?? Theme.WHITE
-    const { t } = useTranslation()
+    const isSoundOn = context?.settings.IsSoundOn ?? false
 
     const componentStyles = {
         container: [
@@ -81,6 +87,11 @@ export const GameEndModal = () => {
         ].join(SPACE)
     }
 
+    const dialogButtonHandler = () => {
+        playBtnSound(!isSoundOn)
+        endGame()
+    }
+
     const [svgSrc, svgFilter] = gameStatus === GameStatus.DRAW ? [handShakeSvg, ''] :
         gameStatus === GameStatus.CROSS_WIN ? [crossSvgSrc, svgFilterStyles.Cross] : [ziroSvgSrc, svgFilterStyles.Circle]
 
@@ -98,13 +109,13 @@ export const GameEndModal = () => {
                 <div className={componentStyles.buttonContainer}>
                     <Link className={[componentStyles.button, componentStyles.menuButton]
                         .join(SPACE)}
-                        onClick={endGame}
+                        onClick={dialogButtonHandler}
                         to={MENU}>
                         {t('winDialog.menu')}
                     </Link>
                     <button className={[componentStyles.button, componentStyles.playButton]
                         .join(SPACE)}
-                        onClick={endGame}>
+                        onClick={dialogButtonHandler}>
                         {t('winDialog.play')}
                     </button>
                 </div>

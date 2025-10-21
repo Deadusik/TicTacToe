@@ -1,15 +1,19 @@
-import { GamePanel } from "../components/GamePanel";
-import gridSVG from '../assets/svgs/grid.svg'
-import svgFilter from '../styles/svg/svgFilters.module.scss'
-import { SPACE } from "../utils/constants";
-import { GameField } from "../components/game_field/GameField";
-import { GameMode, GameStatus, Theme } from "../utils/enums";
 import { useContext, useEffect } from "react";
+import { AppSettingsContext } from "../context";
+// components 
+import { GamePanel } from "../components/GamePanel";
+import { GameField } from "../components/game_field/GameField";
+import { GameEndModal } from "../components/modal/GameEndModal";
+// hooks
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { GameEndModal } from "../components/modal/GameEndModal";
-import { AppSettingsContext } from "../context";
+// utils
 import { logGame } from "../utils/game";
+import { SPACE } from "../utils/constants";
+import { GameMode, GameStatus, Theme } from "../utils/enums";
+// svg stuff
+import gridSVG from '../assets/svgs/grid.svg'
+import svgFilter from '../styles/svg/svgFilters.module.scss'
 
 interface IGamePageParams {
     gameMode: GameMode

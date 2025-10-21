@@ -37,7 +37,7 @@ const HistoryItem: FC<Props> = ({ textColor, winner, index }) => {
     return (
         <div className={styles.listItem}>
             <p className={styles.itemText}>
-                <span className={styles.span}>{index + ". "}</span>
+                <span className={styles.span}>{t("history.itemCountText") + index + ". "}</span>
                 {t("history.itemText")}
             </p>
             <img className={[styles.itemIcon, getSvgFilterByWinner(winner)].join(SPACE)} src={getSvgSrcByWinner(winner)} />

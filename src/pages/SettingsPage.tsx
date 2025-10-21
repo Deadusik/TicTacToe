@@ -1,35 +1,46 @@
-// base
 import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 // utils
 import { SPACE } from "../utils/constants"
 import { Language, Theme } from "../utils/enums"
+import { playBtnSound, playSound } from "../utils/game"
 //assets
 import soundOnSvgSrc from '../assets/svgs/sound_on.svg'
 import soundOffSvgSrc from '../assets/svgs/sound_off.svg'
-// other
+// styles 
 import svgFilters from '../styles/svg/svgFilters.module.scss'
+// other
 import { MENU } from "../router/paths"
 import { AppSettingsContext } from "../context"
 import { AppSettings } from "../models/appSettings"
+import onSound from '../assets/sounds/sound_on.wav'
+import bellSoundSrc from '../assets/sounds/bell1.wav'
 
 export const SettingPage = () => {
     const context = useContext(AppSettingsContext)
     const { t, i18n } = useTranslation()
-    const changeLanguage = (language: Language) => {
-        i18n.changeLanguage(language)
-        localStorage.setItem('language', language)
-    }
 
     const [isSoundOn, setIsSoundOn] = useState(context?.settings.IsSoundOn || false)
     const [theme, setTheme] = useState(context?.settings.Theme || Theme.WHITE)
 
     const soundImgSrc = isSoundOn ? soundOnSvgSrc : soundOffSvgSrc
 
+    const changeLanguage = (language: Language) => {
+        i18n.changeLanguage(language)
+        localStorage.setItem('language', language)
+        playSound(onSound, !isSoundOn)
+    }
+
     const themeHandler = (theme: number) => {
         setTheme(theme)
         localStorage.setItem('theme', String(theme))
+        playSound(bellSoundSrc, !isSoundOn)
+    }
+
+    const soundHandler = () => {
+        setIsSoundOn(!isSoundOn)
+        playSound(onSound, isSoundOn)
     }
 
     useEffect(() => {
@@ -153,9 +164,7 @@ export const SettingPage = () => {
                     { /* Sound property */}
                     <div className={[styles.sound.container, styles.row].join(SPACE)}>
                         <h3 className={styles.settingTitle}>{t('settings.soundLabel')}</h3>
-                        <img onClick={() => {
-                            setIsSoundOn(!isSoundOn)
-                        }}
+                        <img onClick={soundHandler}
                             className={styles.sound.image}
                             src={soundImgSrc}
                             alt="sound" />
@@ -194,7 +203,7 @@ export const SettingPage = () => {
                                 onClick={() => themeHandler(Theme.BLACK)}></button>
                         </div>
                     </div>
-                    <Link className={styles.menuLink} to={MENU}>{t('settings.backBtn')}</Link>
+                    <Link className={styles.menuLink} onClick={() => playBtnSound(!isSoundOn)} to={MENU}>{t('settings.backBtn')}</Link>
                 </div>
             </div>
         </AppSettingsContext.Provider>
