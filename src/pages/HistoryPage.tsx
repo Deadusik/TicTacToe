@@ -5,12 +5,14 @@ import { useContext, useState } from "react"
 import { AppSettingsContext } from "../context"
 import { Theme } from "../utils/enums"
 import HistoryItem from "../components/info/HistoryItem"
+import { useTranslation } from "react-i18next"
 
 export const HistoryPage = () => {
     const context = useContext(AppSettingsContext)
     const theme = context?.settings.Theme ?? Theme.WHITE
     const textColor = theme === Theme.WHITE ? 'text-dark' : 'text-white'
     const [historyList, setHistoryList] = useState<number[]>(JSON.parse(localStorage.getItem('history') || '[]'))
+    const { t } = useTranslation()
 
     const clearHistoryHandler = () => {
         localStorage.removeItem('history')
@@ -70,7 +72,7 @@ export const HistoryPage = () => {
     return (
         <div className={styles.mainContainer}>
             <div className={styles.contentContainer}>
-                <h1 className={styles.pageTitle}>History</h1>
+                <h1 className={styles.pageTitle}>{t('history.title')}</h1>
                 {/* list */}
                 <div className={styles.list}>
                     {historyList.map((winner, index) => {
@@ -83,15 +85,15 @@ export const HistoryPage = () => {
                         )
                     })}
                     {historyList.length === 0 &&
-                        <p className={styles.placeHolder}>History is empty 🤷🏼‍♂️</p>
+                        <p className={styles.placeHolder}>{t('history.placeHolder')}</p>
                     }
                 </div>
                 <button
                     className={[styles.menuLink, styles.clearButton].join(SPACE)}
                     onClick={clearHistoryHandler}>
-                    CLEAR HISTORY
+                    {t('history.clearBtn')}
                 </button>
-                <Link className={styles.menuLink} to={MENU}>BACK TO MENU</Link>
+                <Link className={styles.menuLink} to={MENU}>{t('history.backBtn')}</Link>
             </div>
         </div>
     )

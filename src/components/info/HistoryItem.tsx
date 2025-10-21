@@ -1,6 +1,7 @@
 import { SPACE } from "../../utils/constants"
 import { FC } from "react"
 import { getSvgFilterByWinner, getSvgSrcByWinner } from "../../utils/game"
+import { useTranslation } from "react-i18next"
 
 interface Props {
     textColor: string
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const HistoryItem: FC<Props> = ({ textColor, winner, index }) => {
+    const { t } = useTranslation()
+
     const styles = {
         listItem: [
             'flex',
@@ -35,7 +38,7 @@ const HistoryItem: FC<Props> = ({ textColor, winner, index }) => {
         <div className={styles.listItem}>
             <p className={styles.itemText}>
                 <span className={styles.span}>{index + ". "}</span>
-                Won:
+                {t("history.itemText")}
             </p>
             <img className={[styles.itemIcon, getSvgFilterByWinner(winner)].join(SPACE)} src={getSvgSrcByWinner(winner)} />
         </div>

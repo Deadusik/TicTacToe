@@ -1,26 +1,36 @@
+// base
+import { useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
+// utils
 import { SPACE } from "../utils/constants"
-import { MENU } from "../router/paths"
+import { Language, Theme } from "../utils/enums"
+//assets
 import soundOnSvgSrc from '../assets/svgs/sound_on.svg'
 import soundOffSvgSrc from '../assets/svgs/sound_off.svg'
-import { useContext, useEffect, useState } from "react"
+// other
 import svgFilters from '../styles/svg/svgFilters.module.scss'
-import { Language, Theme } from "../utils/enums"
+import { MENU } from "../router/paths"
 import { AppSettingsContext } from "../context"
 import { AppSettings } from "../models/appSettings"
-import { useTranslation } from "react-i18next"
 
 export const SettingPage = () => {
     const context = useContext(AppSettingsContext)
     const { t, i18n } = useTranslation()
     const changeLanguage = (language: Language) => {
         i18n.changeLanguage(language)
+        localStorage.setItem('language', language)
     }
 
     const [isSoundOn, setIsSoundOn] = useState(context?.settings.IsSoundOn || false)
     const [theme, setTheme] = useState(context?.settings.Theme || Theme.WHITE)
 
     const soundImgSrc = isSoundOn ? soundOnSvgSrc : soundOffSvgSrc
+
+    const themeHandler = (theme: number) => {
+        setTheme(theme)
+        localStorage.setItem('theme', String(theme))
+    }
 
     useEffect(() => {
         context?.setSettings(new AppSettings(theme, isSoundOn))
@@ -175,13 +185,13 @@ export const SettingPage = () => {
                                 styles.theme.buttonWhite,
                                 theme === Theme.WHITE ? styles.theme.buttonActive : ''
                             ].join(SPACE)}
-                                onClick={() => setTheme(Theme.WHITE)}></button>
+                                onClick={() => themeHandler(Theme.WHITE)}></button>
                             <button className={[
                                 styles.theme.button,
                                 styles.theme.buttonBlack,
                                 theme === Theme.BLACK ? styles.theme.buttonActive : ''
                             ].join(SPACE)}
-                                onClick={() => setTheme(Theme.BLACK)}></button>
+                                onClick={() => themeHandler(Theme.BLACK)}></button>
                         </div>
                     </div>
                     <Link className={styles.menuLink} to={MENU}>{t('settings.backBtn')}</Link>

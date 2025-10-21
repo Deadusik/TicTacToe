@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppRouter } from './router/AppRouter';
 import { AppSettingsContext } from './context';
 import { AppSettings } from './models/appSettings';
 import { SPACE } from './utils/constants';
 import { Theme } from './utils/enums';
+import i18n from './locales/i18n';
 
 function App() {
-  const [settings, setSettings] = useState<AppSettings>(new AppSettings())
+  const theme = Number(localStorage.getItem('theme') || Theme.WHITE)
+  const [settings, setSettings] = useState<AppSettings>(new AppSettings(theme, false))
 
   const styles = {
     mainContainer: [
@@ -15,6 +17,12 @@ function App() {
       settings.Theme === Theme.WHITE ? 'bg-orange-50' : 'bg-[#343434]',
     ].join(SPACE)
   }
+
+  useEffect(() => {
+    const savedLng = localStorage.getItem('language')
+    if (savedLng)
+      i18n.changeLanguage(savedLng)
+  }, [])
 
   return (
     <AppSettingsContext.Provider value={{
