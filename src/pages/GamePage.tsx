@@ -14,7 +14,6 @@ import { GameMode, GameStatus, Theme } from "../utils/enums";
 // svg stuff
 import gridSVG from '../assets/svgs/grid.svg'
 import svgFilter from '../styles/svg/svgFilters.module.scss'
-import { setTimeout } from "timers/promises";
 
 interface IGamePageParams {
     gameMode: GameMode

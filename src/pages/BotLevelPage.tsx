@@ -7,10 +7,12 @@ import { playBtnSound } from "../utils/game"
 import { Link } from "react-router-dom"
 import { MENU, SINGLE_EASY, SINGLE_HARD, SINGLE_MEDIUM } from "../router/paths"
 import { Theme } from "../utils/enums"
+import { useTranslation } from "react-i18next"
 
 const BotLevelPage = () => {
     const context = useContext(AppSettingsContext)
     const isSoundOn = context?.settings.IsSoundOn ?? false
+    const { t } = useTranslation()
 
     const theme = context?.settings.Theme ?? Theme.WHITE
     const textColor = theme === Theme.WHITE ? 'text-dark' : 'text-white'
@@ -45,11 +47,11 @@ const BotLevelPage = () => {
     return (
         <div className={styles.mainContainer}>
             <div className={styles.contentContainer}>
-                <h1 className={styles.title}>Choose Difficulty</h1>
-                <Link className={styles.button} onClick={() => playBtnSound(!isSoundOn)} to={SINGLE_EASY}>Baby 👶</Link>
-                <Link className={styles.button} onClick={() => playBtnSound(!isSoundOn)} to={SINGLE_MEDIUM}>Normal 😎</Link>
-                <Link className={styles.button} onClick={() => playBtnSound(!isSoundOn)} to={SINGLE_HARD}>Hard 💀</Link>
-                <Link className={styles.button} onClick={() => playBtnSound(!isSoundOn)} to={MENU}>Menu ↩️</Link>
+                <h1 className={styles.title}>{t('level.title')}</h1>
+                <Link className={styles.button} onClick={() => playBtnSound(!isSoundOn)} to={SINGLE_EASY}>{t('level.easy')}</Link>
+                <Link className={styles.button} onClick={() => playBtnSound(!isSoundOn)} to={SINGLE_MEDIUM}>{t('level.medium')}</Link>
+                <Link className={styles.button} onClick={() => playBtnSound(!isSoundOn)} to={SINGLE_HARD}>{t('level.hard')}</Link>
+                <Link className={styles.button} onClick={() => playBtnSound(!isSoundOn)} to={MENU}>{t('level.backBtn')}</Link>
             </div>
         </div>
     )
